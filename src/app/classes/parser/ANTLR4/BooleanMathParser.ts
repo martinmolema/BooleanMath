@@ -206,21 +206,21 @@ export class BooleanMathParser extends Parser {
 				this.enterOuterAlt(_localctx, 1);
 				{
 				this.state = 44;
-				_localctx._str = this.stringexpression(0);
+				_localctx._num = this.numericexpression(0);
 				}
 				break;
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
 				this.state = 45;
-				_localctx._num = this.numericexpression(0);
+				_localctx._bool = this.booleanexpression(0);
 				}
 				break;
 			case 3:
 				this.enterOuterAlt(_localctx, 3);
 				{
 				this.state = 46;
-				_localctx._bool = this.booleanexpression(0);
+				_localctx._str = this.stringexpression();
 				}
 				break;
 			}
@@ -335,11 +335,11 @@ export class BooleanMathParser extends Parser {
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 58;
-				(_localctx as StringComparisonAssertionContext)._left = this.stringexpression(0);
+				(_localctx as StringComparisonAssertionContext)._left = this.stringexpression();
 				this.state = 59;
 				(_localctx as StringComparisonAssertionContext)._op = this.stringcomparator();
 				this.state = 60;
-				(_localctx as StringComparisonAssertionContext)._right = this.stringexpression(0);
+				(_localctx as StringComparisonAssertionContext)._right = this.stringexpression();
 				}
 				break;
 			case 5:
@@ -348,7 +348,7 @@ export class BooleanMathParser extends Parser {
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 				this.state = 62;
-				(_localctx as StringValueInListAssertionContext)._left = this.stringexpression(0);
+				(_localctx as StringValueInListAssertionContext)._left = this.stringexpression();
 				this.state = 63;
 				(_localctx as StringValueInListAssertionContext)._op = this.listcomparator();
 				this.state = 64;
@@ -481,108 +481,39 @@ export class BooleanMathParser extends Parser {
 		}
 		return _localctx;
 	}
-
-	public stringexpression(): StringexpressionContext;
-	public stringexpression(_p: number): StringexpressionContext;
 	// @RuleVersion(0)
-	public stringexpression(_p?: number): StringexpressionContext {
-		if (_p === undefined) {
-			_p = 0;
-		}
-
-		let _parentctx: ParserRuleContext = this._ctx;
-		let _parentState: number = this.state;
-		let _localctx: StringexpressionContext = new StringexpressionContext(this._ctx, _parentState);
-		let _prevctx: StringexpressionContext = _localctx;
-		let _startState: number = 10;
-		this.enterRecursionRule(_localctx, 10, BooleanMathParser.RULE_stringexpression, _p);
+	public stringexpression(): StringexpressionContext {
+		let _localctx: StringexpressionContext = new StringexpressionContext(this._ctx, this.state);
+		this.enterRule(_localctx, 10, BooleanMathParser.RULE_stringexpression);
 		try {
-			let _alt: number;
-			this.enterOuterAlt(_localctx, 1);
-			{
-			this.state = 97;
+			this.state = 96;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case BooleanMathParser.OPERATORMINMIN:
 			case BooleanMathParser.OPERATORPLUSPLUS:
 			case BooleanMathParser.IDENTIFIERCHARS:
 			case BooleanMathParser.STRING:
-				{
 				_localctx = new PlainStringExpressionContext(_localctx);
-				this._ctx = _localctx;
-				_prevctx = _localctx;
-
-				this.state = 92;
+				this.enterOuterAlt(_localctx, 1);
+				{
+				this.state = 91;
 				(_localctx as PlainStringExpressionContext)._str = this.astring();
 				}
 				break;
 			case BooleanMathParser.LPAREN:
-				{
 				_localctx = new ParenthesedStringExpressionContext(_localctx);
-				this._ctx = _localctx;
-				_prevctx = _localctx;
-				this.state = 93;
+				this.enterOuterAlt(_localctx, 2);
+				{
+				this.state = 92;
 				this.match(BooleanMathParser.LPAREN);
+				this.state = 93;
+				(_localctx as ParenthesedStringExpressionContext)._val = this.stringexpression();
 				this.state = 94;
-				(_localctx as ParenthesedStringExpressionContext)._val = this.stringexpression(0);
-				this.state = 95;
 				this.match(BooleanMathParser.RPAREN);
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
-			}
-			this._ctx._stop = this._input.tryLT(-1);
-			this.state = 107;
-			this._errHandler.sync(this);
-			_alt = this.interpreter.adaptivePredict(this._input, 7, this._ctx);
-			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
-				if (_alt === 1) {
-					if (this._parseListeners != null) {
-						this.triggerExitRuleEvent();
-					}
-					_prevctx = _localctx;
-					{
-					this.state = 105;
-					this._errHandler.sync(this);
-					switch ( this.interpreter.adaptivePredict(this._input, 6, this._ctx) ) {
-					case 1:
-						{
-						_localctx = new ConcatStringExpressionContext(new StringexpressionContext(_parentctx, _parentState));
-						(_localctx as ConcatStringExpressionContext)._left = _prevctx;
-						this.pushNewRecursionContext(_localctx, _startState, BooleanMathParser.RULE_stringexpression);
-						this.state = 99;
-						if (!(this.precpred(this._ctx, 3))) {
-							throw this.createFailedPredicateException("this.precpred(this._ctx, 3)");
-						}
-						this.state = 100;
-						(_localctx as ConcatStringExpressionContext)._op = this.match(BooleanMathParser.PLUS);
-						this.state = 101;
-						(_localctx as ConcatStringExpressionContext)._right = this.stringexpression(4);
-						}
-						break;
-					case 2:
-						{
-						_localctx = new RepeatStringExpressionContext(new StringexpressionContext(_parentctx, _parentState));
-						(_localctx as RepeatStringExpressionContext)._left = _prevctx;
-						this.pushNewRecursionContext(_localctx, _startState, BooleanMathParser.RULE_stringexpression);
-						this.state = 102;
-						if (!(this.precpred(this._ctx, 2))) {
-							throw this.createFailedPredicateException("this.precpred(this._ctx, 2)");
-						}
-						this.state = 103;
-						(_localctx as RepeatStringExpressionContext)._op = this.match(BooleanMathParser.TIMES);
-						this.state = 104;
-						(_localctx as RepeatStringExpressionContext)._right = this.numericexpression(0);
-						}
-						break;
-					}
-					}
-				}
-				this.state = 109;
-				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 7, this._ctx);
-			}
 			}
 		}
 		catch (re) {
@@ -595,7 +526,7 @@ export class BooleanMathParser extends Parser {
 			}
 		}
 		finally {
-			this.unrollRecursionContexts(_parentctx);
+			this.exitRule();
 		}
 		return _localctx;
 	}
@@ -619,16 +550,16 @@ export class BooleanMathParser extends Parser {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 133;
+			this.state = 121;
 			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 10, this._ctx) ) {
+			switch ( this.interpreter.adaptivePredict(this._input, 8, this._ctx) ) {
 			case 1:
 				{
 				_localctx = new IdentifierExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
 
-				this.state = 111;
+				this.state = 99;
 				this.identifier();
 				}
 				break;
@@ -637,12 +568,12 @@ export class BooleanMathParser extends Parser {
 				_localctx = new DecimalExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 113;
+				this.state = 101;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === BooleanMathParser.PLUS || _la === BooleanMathParser.MINUS) {
 					{
-					this.state = 112;
+					this.state = 100;
 					_la = this._input.LA(1);
 					if (!(_la === BooleanMathParser.PLUS || _la === BooleanMathParser.MINUS)) {
 					this._errHandler.recoverInline(this);
@@ -657,7 +588,7 @@ export class BooleanMathParser extends Parser {
 					}
 				}
 
-				this.state = 115;
+				this.state = 103;
 				this.match(BooleanMathParser.DECIMAL);
 				}
 				break;
@@ -666,21 +597,21 @@ export class BooleanMathParser extends Parser {
 				_localctx = new ParenthesedNumericExpressionContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 117;
+				this.state = 105;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === BooleanMathParser.MINUS) {
 					{
-					this.state = 116;
+					this.state = 104;
 					this.match(BooleanMathParser.MINUS);
 					}
 				}
 
-				this.state = 119;
+				this.state = 107;
 				this.match(BooleanMathParser.LPAREN);
-				this.state = 120;
+				this.state = 108;
 				(_localctx as ParenthesedNumericExpressionContext)._parexpression = this.numericexpression(0);
-				this.state = 121;
+				this.state = 109;
 				this.match(BooleanMathParser.RPAREN);
 				}
 				break;
@@ -689,13 +620,13 @@ export class BooleanMathParser extends Parser {
 				_localctx = new FunctionWithSingleParameterContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 123;
+				this.state = 111;
 				(_localctx as FunctionWithSingleParameterContext)._funcs = this.functionwithsingleparameter();
-				this.state = 124;
+				this.state = 112;
 				this.match(BooleanMathParser.LPAREN);
-				this.state = 125;
+				this.state = 113;
 				(_localctx as FunctionWithSingleParameterContext)._operand = this.numericexpression(0);
-				this.state = 126;
+				this.state = 114;
 				this.match(BooleanMathParser.RPAREN);
 				}
 				break;
@@ -704,21 +635,21 @@ export class BooleanMathParser extends Parser {
 				_localctx = new FunctionWithArrayContext(_localctx);
 				this._ctx = _localctx;
 				_prevctx = _localctx;
-				this.state = 128;
+				this.state = 116;
 				(_localctx as FunctionWithArrayContext)._funca = this.functionswitharray();
-				this.state = 129;
+				this.state = 117;
 				this.match(BooleanMathParser.LPAREN);
-				this.state = 130;
+				this.state = 118;
 				(_localctx as FunctionWithArrayContext)._operands = this.valuelist();
-				this.state = 131;
+				this.state = 119;
 				this.match(BooleanMathParser.RPAREN);
 				}
 				break;
 			}
 			this._ctx._stop = this._input.tryLT(-1);
-			this.state = 146;
+			this.state = 134;
 			this._errHandler.sync(this);
-			_alt = this.interpreter.adaptivePredict(this._input, 12, this._ctx);
+			_alt = this.interpreter.adaptivePredict(this._input, 10, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					if (this._parseListeners != null) {
@@ -726,21 +657,21 @@ export class BooleanMathParser extends Parser {
 					}
 					_prevctx = _localctx;
 					{
-					this.state = 144;
+					this.state = 132;
 					this._errHandler.sync(this);
-					switch ( this.interpreter.adaptivePredict(this._input, 11, this._ctx) ) {
+					switch ( this.interpreter.adaptivePredict(this._input, 9, this._ctx) ) {
 					case 1:
 						{
 						_localctx = new OperatorPowerExpressionContext(new NumericexpressionContext(_parentctx, _parentState));
 						(_localctx as OperatorPowerExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, BooleanMathParser.RULE_numericexpression);
-						this.state = 135;
+						this.state = 123;
 						if (!(this.precpred(this._ctx, 7))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 7)");
 						}
-						this.state = 136;
+						this.state = 124;
 						(_localctx as OperatorPowerExpressionContext)._operator = this.match(BooleanMathParser.POW);
-						this.state = 137;
+						this.state = 125;
 						(_localctx as OperatorPowerExpressionContext)._right = this.numericexpression(8);
 						}
 						break;
@@ -749,11 +680,11 @@ export class BooleanMathParser extends Parser {
 						_localctx = new OperatorTimesDivExpressionContext(new NumericexpressionContext(_parentctx, _parentState));
 						(_localctx as OperatorTimesDivExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, BooleanMathParser.RULE_numericexpression);
-						this.state = 138;
+						this.state = 126;
 						if (!(this.precpred(this._ctx, 6))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 6)");
 						}
-						this.state = 139;
+						this.state = 127;
 						_la = this._input.LA(1);
 						if (!(_la === BooleanMathParser.TIMES || _la === BooleanMathParser.DIV)) {
 						this._errHandler.recoverInline(this);
@@ -765,7 +696,7 @@ export class BooleanMathParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
-						this.state = 140;
+						this.state = 128;
 						(_localctx as OperatorTimesDivExpressionContext)._right = this.numericexpression(7);
 						}
 						break;
@@ -774,11 +705,11 @@ export class BooleanMathParser extends Parser {
 						_localctx = new OperationPlusMinusExpressionContext(new NumericexpressionContext(_parentctx, _parentState));
 						(_localctx as OperationPlusMinusExpressionContext)._left = _prevctx;
 						this.pushNewRecursionContext(_localctx, _startState, BooleanMathParser.RULE_numericexpression);
-						this.state = 141;
+						this.state = 129;
 						if (!(this.precpred(this._ctx, 5))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 5)");
 						}
-						this.state = 142;
+						this.state = 130;
 						_la = this._input.LA(1);
 						if (!(_la === BooleanMathParser.PLUS || _la === BooleanMathParser.MINUS)) {
 						this._errHandler.recoverInline(this);
@@ -790,16 +721,16 @@ export class BooleanMathParser extends Parser {
 							this._errHandler.reportMatch(this);
 							this.consume();
 						}
-						this.state = 143;
+						this.state = 131;
 						(_localctx as OperationPlusMinusExpressionContext)._right = this.numericexpression(6);
 						}
 						break;
 					}
 					}
 				}
-				this.state = 148;
+				this.state = 136;
 				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 12, this._ctx);
+				_alt = this.interpreter.adaptivePredict(this._input, 10, this._ctx);
 			}
 			}
 		}
@@ -825,7 +756,7 @@ export class BooleanMathParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 149;
+			this.state = 137;
 			_la = this._input.LA(1);
 			if (!(_la === BooleanMathParser.SQRT || _la === BooleanMathParser.CUBE)) {
 			this._errHandler.recoverInline(this);
@@ -861,7 +792,7 @@ export class BooleanMathParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 151;
+			this.state = 139;
 			_la = this._input.LA(1);
 			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << BooleanMathParser.SUM) | (1 << BooleanMathParser.AVERAGE) | (1 << BooleanMathParser.MIN) | (1 << BooleanMathParser.MAX))) !== 0))) {
 			this._errHandler.recoverInline(this);
@@ -897,7 +828,7 @@ export class BooleanMathParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 153;
+			this.state = 141;
 			_la = this._input.LA(1);
 			if (!(((((_la - 26)) & ~0x1F) === 0 && ((1 << (_la - 26)) & ((1 << (BooleanMathParser.GT - 26)) | (1 << (BooleanMathParser.GE - 26)) | (1 << (BooleanMathParser.LT - 26)) | (1 << (BooleanMathParser.LE - 26)) | (1 << (BooleanMathParser.EQ - 26)) | (1 << (BooleanMathParser.NEQ - 26)) | (1 << (BooleanMathParser.APPROXIMATION - 26)))) !== 0))) {
 			this._errHandler.recoverInline(this);
@@ -933,7 +864,7 @@ export class BooleanMathParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 155;
+			this.state = 143;
 			_la = this._input.LA(1);
 			if (!(((((_la - 26)) & ~0x1F) === 0 && ((1 << (_la - 26)) & ((1 << (BooleanMathParser.GT - 26)) | (1 << (BooleanMathParser.GE - 26)) | (1 << (BooleanMathParser.LT - 26)) | (1 << (BooleanMathParser.LE - 26)) | (1 << (BooleanMathParser.EQ - 26)) | (1 << (BooleanMathParser.NEQ - 26)) | (1 << (BooleanMathParser.LIKE - 26)))) !== 0))) {
 			this._errHandler.recoverInline(this);
@@ -966,22 +897,22 @@ export class BooleanMathParser extends Parser {
 		let _localctx: ListcomparatorContext = new ListcomparatorContext(this._ctx, this.state);
 		this.enterRule(_localctx, 22, BooleanMathParser.RULE_listcomparator);
 		try {
-			this.state = 160;
+			this.state = 148;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case BooleanMathParser.IN:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 157;
+				this.state = 145;
 				this.match(BooleanMathParser.IN);
 				}
 				break;
 			case BooleanMathParser.NOT:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 158;
+				this.state = 146;
 				this.match(BooleanMathParser.NOT);
-				this.state = 159;
+				this.state = 147;
 				this.match(BooleanMathParser.IN);
 				}
 				break;
@@ -1011,7 +942,7 @@ export class BooleanMathParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 162;
+			this.state = 150;
 			_la = this._input.LA(1);
 			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << BooleanMathParser.AND) | (1 << BooleanMathParser.OR) | (1 << BooleanMathParser.XOR) | (1 << BooleanMathParser.EQ) | (1 << BooleanMathParser.NEQ))) !== 0))) {
 			this._errHandler.recoverInline(this);
@@ -1044,28 +975,28 @@ export class BooleanMathParser extends Parser {
 		let _localctx: ValueContext = new ValueContext(this._ctx, this.state);
 		this.enterRule(_localctx, 26, BooleanMathParser.RULE_value);
 		try {
-			this.state = 167;
+			this.state = 155;
 			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 14, this._ctx) ) {
+			switch ( this.interpreter.adaptivePredict(this._input, 12, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 164;
+				this.state = 152;
 				_localctx._bool = this.booleanexpression(0);
 				}
 				break;
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 165;
+				this.state = 153;
 				_localctx._num = this.numericexpression(0);
 				}
 				break;
 			case 3:
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 166;
-				_localctx._str = this.stringexpression(0);
+				this.state = 154;
+				_localctx._str = this.stringexpression();
 				}
 				break;
 			}
@@ -1092,19 +1023,19 @@ export class BooleanMathParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 169;
+			this.state = 157;
 			this.match(BooleanMathParser.BEGINLIST);
-			this.state = 171;
+			this.state = 159;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << BooleanMathParser.PLUS) | (1 << BooleanMathParser.MINUS) | (1 << BooleanMathParser.SQRT) | (1 << BooleanMathParser.CUBE) | (1 << BooleanMathParser.SUM) | (1 << BooleanMathParser.AVERAGE) | (1 << BooleanMathParser.MIN) | (1 << BooleanMathParser.MAX) | (1 << BooleanMathParser.OPERATORMINMIN) | (1 << BooleanMathParser.OPERATORPLUSPLUS))) !== 0) || ((((_la - 36)) & ~0x1F) === 0 && ((1 << (_la - 36)) & ((1 << (BooleanMathParser.LPAREN - 36)) | (1 << (BooleanMathParser.DECIMAL - 36)) | (1 << (BooleanMathParser.IDENTIFIERCHARS - 36)) | (1 << (BooleanMathParser.STRING - 36)))) !== 0)) {
 				{
-				this.state = 170;
+				this.state = 158;
 				this.listelements();
 				}
 			}
 
-			this.state = 173;
+			this.state = 161;
 			this.match(BooleanMathParser.ENDLIST);
 			}
 		}
@@ -1130,21 +1061,21 @@ export class BooleanMathParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 175;
+			this.state = 163;
 			this.listelement();
-			this.state = 180;
+			this.state = 168;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === BooleanMathParser.LISTSEPERATOR) {
 				{
 				{
-				this.state = 176;
+				this.state = 164;
 				this.match(BooleanMathParser.LISTSEPERATOR);
-				this.state = 177;
+				this.state = 165;
 				this.listelement();
 				}
 				}
-				this.state = 182;
+				this.state = 170;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
@@ -1169,21 +1100,21 @@ export class BooleanMathParser extends Parser {
 		let _localctx: ListelementContext = new ListelementContext(this._ctx, this.state);
 		this.enterRule(_localctx, 32, BooleanMathParser.RULE_listelement);
 		try {
-			this.state = 185;
+			this.state = 173;
 			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 17, this._ctx) ) {
+			switch ( this.interpreter.adaptivePredict(this._input, 15, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 183;
+				this.state = 171;
 				_localctx._num = this.numericexpression(0);
 				}
 				break;
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 184;
-				_localctx._str = this.stringexpression(0);
+				this.state = 172;
+				_localctx._str = this.stringexpression();
 				}
 				break;
 			}
@@ -1210,7 +1141,7 @@ export class BooleanMathParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 187;
+			this.state = 175;
 			_la = this._input.LA(1);
 			if (!(_la === BooleanMathParser.OPERATORMINMIN || _la === BooleanMathParser.OPERATORPLUSPLUS)) {
 			this._errHandler.recoverInline(this);
@@ -1222,7 +1153,7 @@ export class BooleanMathParser extends Parser {
 				this._errHandler.reportMatch(this);
 				this.consume();
 			}
-			this.state = 188;
+			this.state = 176;
 			_localctx._ident = this.match(BooleanMathParser.IDENTIFIERCHARS);
 			}
 		}
@@ -1248,9 +1179,9 @@ export class BooleanMathParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 190;
+			this.state = 178;
 			_localctx._ident = this.match(BooleanMathParser.IDENTIFIERCHARS);
-			this.state = 191;
+			this.state = 179;
 			_la = this._input.LA(1);
 			if (!(_la === BooleanMathParser.OPERATORMINMIN || _la === BooleanMathParser.OPERATORPLUSPLUS)) {
 			this._errHandler.recoverInline(this);
@@ -1283,27 +1214,27 @@ export class BooleanMathParser extends Parser {
 		let _localctx: IdentifierContext = new IdentifierContext(this._ctx, this.state);
 		this.enterRule(_localctx, 38, BooleanMathParser.RULE_identifier);
 		try {
-			this.state = 196;
+			this.state = 184;
 			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 18, this._ctx) ) {
+			switch ( this.interpreter.adaptivePredict(this._input, 16, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 193;
+				this.state = 181;
 				_localctx._uleft = this.unaryoperationleft();
 				}
 				break;
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 194;
+				this.state = 182;
 				_localctx._uright = this.unaryoperationright();
 				}
 				break;
 			case 3:
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 195;
+				this.state = 183;
 				_localctx._ident = this.match(BooleanMathParser.IDENTIFIERCHARS);
 				}
 				break;
@@ -1328,8 +1259,6 @@ export class BooleanMathParser extends Parser {
 		switch (ruleIndex) {
 		case 3:
 			return this.booleanexpression_sempred(_localctx as BooleanexpressionContext, predIndex);
-		case 5:
-			return this.stringexpression_sempred(_localctx as StringexpressionContext, predIndex);
 		case 6:
 			return this.numericexpression_sempred(_localctx as NumericexpressionContext, predIndex);
 		}
@@ -1342,29 +1271,20 @@ export class BooleanMathParser extends Parser {
 		}
 		return true;
 	}
-	private stringexpression_sempred(_localctx: StringexpressionContext, predIndex: number): boolean {
-		switch (predIndex) {
-		case 1:
-			return this.precpred(this._ctx, 3);
-		case 2:
-			return this.precpred(this._ctx, 2);
-		}
-		return true;
-	}
 	private numericexpression_sempred(_localctx: NumericexpressionContext, predIndex: number): boolean {
 		switch (predIndex) {
-		case 3:
+		case 1:
 			return this.precpred(this._ctx, 7);
-		case 4:
+		case 2:
 			return this.precpred(this._ctx, 6);
-		case 5:
+		case 3:
 			return this.precpred(this._ctx, 5);
 		}
 		return true;
 	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03*\xC9\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03*\xBD\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
 		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r\x04" +
 		"\x0E\t\x0E\x04\x0F\t\x0F\x04\x10\t\x10\x04\x11\t\x11\x04\x12\t\x12\x04" +
@@ -1374,82 +1294,76 @@ export class BooleanMathParser extends Parser {
 		"\x03\x05\x03\x05\x03\x05\x03\x05\x03\x05\x03\x05\x03\x05\x03\x05\x03\x05" +
 		"\x03\x05\x03\x05\x03\x05\x03\x05\x03\x05\x05\x05O\n\x05\x03\x05\x03\x05" +
 		"\x03\x05\x03\x05\x07\x05U\n\x05\f\x05\x0E\x05X\v\x05\x03\x06\x03\x06\x05" +
-		"\x06\\\n\x06\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x05\x07d" +
-		"\n\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x07\x07l\n\x07" +
-		"\f\x07\x0E\x07o\v\x07\x03\b\x03\b\x03\b\x05\bt\n\b\x03\b\x03\b\x05\bx" +
-		"\n\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b" +
-		"\x03\b\x03\b\x03\b\x05\b\x88\n\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03" +
-		"\b\x03\b\x03\b\x07\b\x93\n\b\f\b\x0E\b\x96\v\b\x03\t\x03\t\x03\n\x03\n" +
-		"\x03\v\x03\v\x03\f\x03\f\x03\r\x03\r\x03\r\x05\r\xA3\n\r\x03\x0E\x03\x0E" +
-		"\x03\x0F\x03\x0F\x03\x0F\x05\x0F\xAA\n\x0F\x03\x10\x03\x10\x05\x10\xAE" +
-		"\n\x10\x03\x10\x03\x10\x03\x11\x03\x11\x03\x11\x07\x11\xB5\n\x11\f\x11" +
-		"\x0E\x11\xB8\v\x11\x03\x12\x03\x12\x05\x12\xBC\n\x12\x03\x13\x03\x13\x03" +
-		"\x13\x03\x14\x03\x14\x03\x14\x03\x15\x03\x15\x03\x15\x05\x15\xC7\n\x15" +
-		"\x03\x15\x02\x02\x05\b\f\x0E\x16\x02\x02\x04\x02\x06\x02\b\x02\n\x02\f" +
-		"\x02\x0E\x02\x10\x02\x12\x02\x14\x02\x16\x02\x18\x02\x1A\x02\x1C\x02\x1E" +
-		"\x02 \x02\"\x02$\x02&\x02(\x02\x02\v\x03\x02\x04\x05\x03\x02\x07\b\x03" +
-		"\x02\t\n\x03\x02\f\r\x03\x02\x0E\x11\x03\x02\x1C\"\x04\x02\x1C!$$\x04" +
-		"\x02\x18\x1A !\x03\x02\x12\x13\x02\xD4\x02,\x03\x02\x02\x02\x041\x03\x02" +
-		"\x02\x02\x063\x03\x02\x02\x02\bN\x03\x02\x02\x02\n[\x03\x02\x02\x02\f" +
-		"c\x03\x02\x02\x02\x0E\x87\x03\x02\x02\x02\x10\x97\x03\x02\x02\x02\x12" +
-		"\x99\x03\x02\x02\x02\x14\x9B\x03\x02\x02\x02\x16\x9D\x03\x02\x02\x02\x18" +
-		"\xA2\x03\x02\x02\x02\x1A\xA4\x03\x02\x02\x02\x1C\xA9\x03\x02\x02\x02\x1E" +
-		"\xAB\x03\x02\x02\x02 \xB1\x03\x02\x02\x02\"\xBB\x03\x02\x02\x02$\xBD\x03" +
-		"\x02\x02\x02&\xC0\x03\x02\x02\x02(\xC6\x03\x02\x02\x02*-\x05\x04\x03\x02" +
-		"+-\x07\x02\x02\x03,*\x03\x02\x02\x02,+\x03\x02\x02\x02-\x03\x03\x02\x02" +
-		"\x02.2\x05\f\x07\x02/2\x05\x0E\b\x0202\x05\b\x05\x021.\x03\x02\x02\x02" +
-		"1/\x03\x02\x02\x0210\x03\x02\x02\x022\x05\x03\x02\x02\x0234\t\x02\x02" +
-		"\x024\x07\x03\x02\x02\x0256\b\x05\x01\x026O\x05\x06\x04\x027O\x07)\x02" +
-		"\x0289\x05\x0E\b\x029:\x05\x14\v\x02:;\x05\x0E\b\x02;O\x03\x02\x02\x02" +
-		"<=\x05\f\x07\x02=>\x05\x16\f\x02>?\x05\f\x07\x02?O\x03\x02\x02\x02@A\x05" +
-		"\f\x07\x02AB\x05\x18\r\x02BC\x05\x1E\x10\x02CO\x03\x02\x02\x02DE\x05\x0E" +
-		"\b\x02EF\x05\x18\r\x02FG\x05\x1E\x10\x02GO\x03\x02\x02\x02HI\x07&\x02" +
-		"\x02IJ\x05\b\x05\x02JK\x07\'\x02\x02KO\x03\x02\x02\x02LM\x07\x1B\x02\x02" +
-		"MO\x05\b\x05\x03N5\x03\x02\x02\x02N7\x03\x02\x02\x02N8\x03\x02\x02\x02" +
-		"N<\x03\x02\x02\x02N@\x03\x02\x02\x02ND\x03\x02\x02\x02NH\x03\x02\x02\x02" +
-		"NL\x03\x02\x02\x02OV\x03\x02\x02\x02PQ\f\t\x02\x02QR\x05\x1A\x0E\x02R" +
-		"S\x05\b\x05\nSU\x03\x02\x02\x02TP\x03\x02\x02\x02UX\x03\x02\x02\x02VT" +
-		"\x03\x02\x02\x02VW\x03\x02\x02\x02W\t\x03\x02\x02\x02XV\x03\x02\x02\x02" +
-		"Y\\\x07*\x02\x02Z\\\x05(\x15\x02[Y\x03\x02\x02\x02[Z\x03\x02\x02\x02\\" +
-		"\v\x03\x02\x02\x02]^\b\x07\x01\x02^d\x05\n\x06\x02_`\x07&\x02\x02`a\x05" +
-		"\f\x07\x02ab\x07\'\x02\x02bd\x03\x02\x02\x02c]\x03\x02\x02\x02c_\x03\x02" +
-		"\x02\x02dm\x03\x02\x02\x02ef\f\x05\x02\x02fg\x07\x07\x02\x02gl\x05\f\x07" +
-		"\x06hi\f\x04\x02\x02ij\x07\t\x02\x02jl\x05\x0E\b\x02ke\x03\x02\x02\x02" +
-		"kh\x03\x02\x02\x02lo\x03\x02\x02\x02mk\x03\x02\x02\x02mn\x03\x02\x02\x02" +
-		"n\r\x03\x02\x02\x02om\x03\x02\x02\x02pq\b\b\x01\x02q\x88\x05(\x15\x02" +
-		"rt\t\x03\x02\x02sr\x03\x02\x02\x02st\x03\x02\x02\x02tu\x03\x02\x02\x02" +
-		"u\x88\x07(\x02\x02vx\x07\b\x02\x02wv\x03\x02\x02\x02wx\x03\x02\x02\x02" +
-		"xy\x03\x02\x02\x02yz\x07&\x02\x02z{\x05\x0E\b\x02{|\x07\'\x02\x02|\x88" +
-		"\x03\x02\x02\x02}~\x05\x10\t\x02~\x7F\x07&\x02\x02\x7F\x80\x05\x0E\b\x02" +
-		"\x80\x81\x07\'\x02\x02\x81\x88\x03\x02\x02\x02\x82\x83\x05\x12\n\x02\x83" +
-		"\x84\x07&\x02\x02\x84\x85\x05\x1E\x10\x02\x85\x86\x07\'\x02\x02\x86\x88" +
-		"\x03\x02\x02\x02\x87p\x03\x02\x02\x02\x87s\x03\x02\x02\x02\x87w\x03\x02" +
-		"\x02\x02\x87}\x03\x02\x02\x02\x87\x82\x03\x02\x02\x02\x88\x94\x03\x02" +
-		"\x02\x02\x89\x8A\f\t\x02\x02\x8A\x8B\x07\v\x02\x02\x8B\x93\x05\x0E\b\n" +
-		"\x8C\x8D\f\b\x02\x02\x8D\x8E\t\x04\x02\x02\x8E\x93\x05\x0E\b\t\x8F\x90" +
-		"\f\x07\x02\x02\x90\x91\t\x03\x02\x02\x91\x93\x05\x0E\b\b\x92\x89\x03\x02" +
-		"\x02\x02\x92\x8C\x03\x02\x02\x02\x92\x8F\x03\x02\x02\x02\x93\x96\x03\x02" +
-		"\x02\x02\x94\x92\x03\x02\x02\x02\x94\x95\x03\x02\x02\x02\x95\x0F\x03\x02" +
-		"\x02\x02\x96\x94\x03\x02\x02\x02\x97\x98\t\x05\x02\x02\x98\x11\x03\x02" +
-		"\x02\x02\x99\x9A\t\x06\x02\x02\x9A\x13\x03\x02\x02\x02\x9B\x9C\t\x07\x02" +
-		"\x02\x9C\x15\x03\x02\x02\x02\x9D\x9E\t\b\x02\x02\x9E\x17\x03\x02\x02\x02" +
-		"\x9F\xA3\x07#\x02\x02\xA0\xA1\x07\x1B\x02\x02\xA1\xA3\x07#\x02\x02\xA2" +
-		"\x9F\x03\x02\x02\x02\xA2\xA0\x03\x02\x02\x02\xA3\x19\x03\x02\x02\x02\xA4" +
-		"\xA5\t\t\x02\x02\xA5\x1B\x03\x02\x02\x02\xA6\xAA\x05\b\x05\x02\xA7\xAA" +
-		"\x05\x0E\b\x02\xA8\xAA\x05\f\x07\x02\xA9\xA6\x03\x02\x02\x02\xA9\xA7\x03" +
-		"\x02\x02\x02\xA9\xA8\x03\x02\x02\x02\xAA\x1D\x03\x02\x02\x02\xAB\xAD\x07" +
-		"\x15\x02\x02\xAC\xAE\x05 \x11\x02\xAD\xAC\x03\x02\x02\x02\xAD\xAE\x03" +
-		"\x02\x02\x02\xAE\xAF\x03\x02\x02\x02\xAF\xB0\x07\x16\x02\x02\xB0\x1F\x03" +
-		"\x02\x02\x02\xB1\xB6\x05\"\x12\x02\xB2\xB3\x07\x14\x02\x02\xB3\xB5\x05" +
-		"\"\x12\x02\xB4\xB2\x03\x02\x02\x02\xB5\xB8\x03\x02\x02\x02\xB6\xB4\x03" +
-		"\x02\x02\x02\xB6\xB7\x03\x02\x02\x02\xB7!\x03\x02\x02\x02\xB8\xB6\x03" +
-		"\x02\x02\x02\xB9\xBC\x05\x0E\b\x02\xBA\xBC\x05\f\x07\x02\xBB\xB9\x03\x02" +
-		"\x02\x02\xBB\xBA\x03\x02\x02\x02\xBC#\x03\x02\x02\x02\xBD\xBE\t\n\x02" +
-		"\x02\xBE\xBF\x07)\x02\x02\xBF%\x03\x02\x02\x02\xC0\xC1\x07)\x02\x02\xC1" +
-		"\xC2\t\n\x02\x02\xC2\'\x03\x02\x02\x02\xC3\xC7\x05$\x13\x02\xC4\xC7\x05" +
-		"&\x14\x02\xC5\xC7\x07)\x02\x02\xC6\xC3\x03\x02\x02\x02\xC6\xC4\x03\x02" +
-		"\x02\x02\xC6\xC5\x03\x02\x02\x02\xC7)\x03\x02\x02\x02\x15,1NV[ckmsw\x87" +
-		"\x92\x94\xA2\xA9\xAD\xB6\xBB\xC6";
+		"\x06\\\n\x06\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x05\x07c\n\x07\x03" +
+		"\b\x03\b\x03\b\x05\bh\n\b\x03\b\x03\b\x05\bl\n\b\x03\b\x03\b\x03\b\x03" +
+		"\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x05\b|" +
+		"\n\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x07\b\x87\n" +
+		"\b\f\b\x0E\b\x8A\v\b\x03\t\x03\t\x03\n\x03\n\x03\v\x03\v\x03\f\x03\f\x03" +
+		"\r\x03\r\x03\r\x05\r\x97\n\r\x03\x0E\x03\x0E\x03\x0F\x03\x0F\x03\x0F\x05" +
+		"\x0F\x9E\n\x0F\x03\x10\x03\x10\x05\x10\xA2\n\x10\x03\x10\x03\x10\x03\x11" +
+		"\x03\x11\x03\x11\x07\x11\xA9\n\x11\f\x11\x0E\x11\xAC\v\x11\x03\x12\x03" +
+		"\x12\x05\x12\xB0\n\x12\x03\x13\x03\x13\x03\x13\x03\x14\x03\x14\x03\x14" +
+		"\x03\x15\x03\x15\x03\x15\x05\x15\xBB\n\x15\x03\x15\x02\x02\x04\b\x0E\x16" +
+		"\x02\x02\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x14" +
+		"\x02\x16\x02\x18\x02\x1A\x02\x1C\x02\x1E\x02 \x02\"\x02$\x02&\x02(\x02" +
+		"\x02\v\x03\x02\x04\x05\x03\x02\x07\b\x03\x02\t\n\x03\x02\f\r\x03\x02\x0E" +
+		"\x11\x03\x02\x1C\"\x04\x02\x1C!$$\x04\x02\x18\x1A !\x03\x02\x12\x13\x02" +
+		"\xC6\x02,\x03\x02\x02\x02\x041\x03\x02\x02\x02\x063\x03\x02\x02\x02\b" +
+		"N\x03\x02\x02\x02\n[\x03\x02\x02\x02\fb\x03\x02\x02\x02\x0E{\x03\x02\x02" +
+		"\x02\x10\x8B\x03\x02\x02\x02\x12\x8D\x03\x02\x02\x02\x14\x8F\x03\x02\x02" +
+		"\x02\x16\x91\x03\x02\x02\x02\x18\x96\x03\x02\x02\x02\x1A\x98\x03\x02\x02" +
+		"\x02\x1C\x9D\x03\x02\x02\x02\x1E\x9F\x03\x02\x02\x02 \xA5\x03\x02\x02" +
+		"\x02\"\xAF\x03\x02\x02\x02$\xB1\x03\x02\x02\x02&\xB4\x03\x02\x02\x02(" +
+		"\xBA\x03\x02\x02\x02*-\x05\x04\x03\x02+-\x07\x02\x02\x03,*\x03\x02\x02" +
+		"\x02,+\x03\x02\x02\x02-\x03\x03\x02\x02\x02.2\x05\x0E\b\x02/2\x05\b\x05" +
+		"\x0202\x05\f\x07\x021.\x03\x02\x02\x021/\x03\x02\x02\x0210\x03\x02\x02" +
+		"\x022\x05\x03\x02\x02\x0234\t\x02\x02\x024\x07\x03\x02\x02\x0256\b\x05" +
+		"\x01\x026O\x05\x06\x04\x027O\x07)\x02\x0289\x05\x0E\b\x029:\x05\x14\v" +
+		"\x02:;\x05\x0E\b\x02;O\x03\x02\x02\x02<=\x05\f\x07\x02=>\x05\x16\f\x02" +
+		">?\x05\f\x07\x02?O\x03\x02\x02\x02@A\x05\f\x07\x02AB\x05\x18\r\x02BC\x05" +
+		"\x1E\x10\x02CO\x03\x02\x02\x02DE\x05\x0E\b\x02EF\x05\x18\r\x02FG\x05\x1E" +
+		"\x10\x02GO\x03\x02\x02\x02HI\x07&\x02\x02IJ\x05\b\x05\x02JK\x07\'\x02" +
+		"\x02KO\x03\x02\x02\x02LM\x07\x1B\x02\x02MO\x05\b\x05\x03N5\x03\x02\x02" +
+		"\x02N7\x03\x02\x02\x02N8\x03\x02\x02\x02N<\x03\x02\x02\x02N@\x03\x02\x02" +
+		"\x02ND\x03\x02\x02\x02NH\x03\x02\x02\x02NL\x03\x02\x02\x02OV\x03\x02\x02" +
+		"\x02PQ\f\t\x02\x02QR\x05\x1A\x0E\x02RS\x05\b\x05\nSU\x03\x02\x02\x02T" +
+		"P\x03\x02\x02\x02UX\x03\x02\x02\x02VT\x03\x02\x02\x02VW\x03\x02\x02\x02" +
+		"W\t\x03\x02\x02\x02XV\x03\x02\x02\x02Y\\\x07*\x02\x02Z\\\x05(\x15\x02" +
+		"[Y\x03\x02\x02\x02[Z\x03\x02\x02\x02\\\v\x03\x02\x02\x02]c\x05\n\x06\x02" +
+		"^_\x07&\x02\x02_`\x05\f\x07\x02`a\x07\'\x02\x02ac\x03\x02\x02\x02b]\x03" +
+		"\x02\x02\x02b^\x03\x02\x02\x02c\r\x03\x02\x02\x02de\b\b\x01\x02e|\x05" +
+		"(\x15\x02fh\t\x03\x02\x02gf\x03\x02\x02\x02gh\x03\x02\x02\x02hi\x03\x02" +
+		"\x02\x02i|\x07(\x02\x02jl\x07\b\x02\x02kj\x03\x02\x02\x02kl\x03\x02\x02" +
+		"\x02lm\x03\x02\x02\x02mn\x07&\x02\x02no\x05\x0E\b\x02op\x07\'\x02\x02" +
+		"p|\x03\x02\x02\x02qr\x05\x10\t\x02rs\x07&\x02\x02st\x05\x0E\b\x02tu\x07" +
+		"\'\x02\x02u|\x03\x02\x02\x02vw\x05\x12\n\x02wx\x07&\x02\x02xy\x05\x1E" +
+		"\x10\x02yz\x07\'\x02\x02z|\x03\x02\x02\x02{d\x03\x02\x02\x02{g\x03\x02" +
+		"\x02\x02{k\x03\x02\x02\x02{q\x03\x02\x02\x02{v\x03\x02\x02\x02|\x88\x03" +
+		"\x02\x02\x02}~\f\t\x02\x02~\x7F\x07\v\x02\x02\x7F\x87\x05\x0E\b\n\x80" +
+		"\x81\f\b\x02\x02\x81\x82\t\x04\x02\x02\x82\x87\x05\x0E\b\t\x83\x84\f\x07" +
+		"\x02\x02\x84\x85\t\x03\x02\x02\x85\x87\x05\x0E\b\b\x86}\x03\x02\x02\x02" +
+		"\x86\x80\x03\x02\x02\x02\x86\x83\x03\x02\x02\x02\x87\x8A\x03\x02\x02\x02" +
+		"\x88\x86\x03\x02\x02\x02\x88\x89\x03\x02\x02\x02\x89\x0F\x03\x02\x02\x02" +
+		"\x8A\x88\x03\x02\x02\x02\x8B\x8C\t\x05\x02\x02\x8C\x11\x03\x02\x02\x02" +
+		"\x8D\x8E\t\x06\x02\x02\x8E\x13\x03\x02\x02\x02\x8F\x90\t\x07\x02\x02\x90" +
+		"\x15\x03\x02\x02\x02\x91\x92\t\b\x02\x02\x92\x17\x03\x02\x02\x02\x93\x97" +
+		"\x07#\x02\x02\x94\x95\x07\x1B\x02\x02\x95\x97\x07#\x02\x02\x96\x93\x03" +
+		"\x02\x02\x02\x96\x94\x03\x02\x02\x02\x97\x19\x03\x02\x02\x02\x98\x99\t" +
+		"\t\x02\x02\x99\x1B\x03\x02\x02\x02\x9A\x9E\x05\b\x05\x02\x9B\x9E\x05\x0E" +
+		"\b\x02\x9C\x9E\x05\f\x07\x02\x9D\x9A\x03\x02\x02\x02\x9D\x9B\x03\x02\x02" +
+		"\x02\x9D\x9C\x03\x02\x02\x02\x9E\x1D\x03\x02\x02\x02\x9F\xA1\x07\x15\x02" +
+		"\x02\xA0\xA2\x05 \x11\x02\xA1\xA0\x03\x02\x02\x02\xA1\xA2\x03\x02\x02" +
+		"\x02\xA2\xA3\x03\x02\x02\x02\xA3\xA4\x07\x16\x02\x02\xA4\x1F\x03\x02\x02" +
+		"\x02\xA5\xAA\x05\"\x12\x02\xA6\xA7\x07\x14\x02\x02\xA7\xA9\x05\"\x12\x02" +
+		"\xA8\xA6\x03\x02\x02\x02\xA9\xAC\x03\x02\x02\x02\xAA\xA8\x03\x02\x02\x02" +
+		"\xAA\xAB\x03\x02\x02\x02\xAB!\x03\x02\x02\x02\xAC\xAA\x03\x02\x02\x02" +
+		"\xAD\xB0\x05\x0E\b\x02\xAE\xB0\x05\f\x07\x02\xAF\xAD\x03\x02\x02\x02\xAF" +
+		"\xAE\x03\x02\x02\x02\xB0#\x03\x02\x02\x02\xB1\xB2\t\n\x02\x02\xB2\xB3" +
+		"\x07)\x02\x02\xB3%\x03\x02\x02\x02\xB4\xB5\x07)\x02\x02\xB5\xB6\t\n\x02" +
+		"\x02\xB6\'\x03\x02\x02\x02\xB7\xBB\x05$\x13\x02\xB8\xBB\x05&\x14\x02\xB9" +
+		"\xBB\x07)\x02\x02\xBA\xB7\x03\x02\x02\x02\xBA\xB8\x03\x02\x02\x02\xBA" +
+		"\xB9\x03\x02\x02\x02\xBB)\x03\x02\x02\x02\x13,1NV[bgk{\x86\x88\x96\x9D" +
+		"\xA1\xAA\xAF\xBA";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!BooleanMathParser.__ATN) {
@@ -1495,17 +1409,17 @@ export class ParseContext extends ParserRuleContext {
 
 
 export class AnexpressionContext extends ParserRuleContext {
-	public _str!: StringexpressionContext;
 	public _num!: NumericexpressionContext;
 	public _bool!: BooleanexpressionContext;
-	public stringexpression(): StringexpressionContext | undefined {
-		return this.tryGetRuleContext(0, StringexpressionContext);
-	}
+	public _str!: StringexpressionContext;
 	public numericexpression(): NumericexpressionContext | undefined {
 		return this.tryGetRuleContext(0, NumericexpressionContext);
 	}
 	public booleanexpression(): BooleanexpressionContext | undefined {
 		return this.tryGetRuleContext(0, BooleanexpressionContext);
+	}
+	public stringexpression(): StringexpressionContext | undefined {
+		return this.tryGetRuleContext(0, StringexpressionContext);
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
@@ -1964,81 +1878,6 @@ export class PlainStringExpressionContext extends StringexpressionContext {
 	public override accept<Result>(visitor: BooleanMathVisitor<Result>): Result {
 		if (visitor.visitPlainStringExpression) {
 			return visitor.visitPlainStringExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class ConcatStringExpressionContext extends StringexpressionContext {
-	public _left!: StringexpressionContext;
-	public _op!: Token;
-	public _right!: StringexpressionContext;
-	public stringexpression(): StringexpressionContext[];
-	public stringexpression(i: number): StringexpressionContext;
-	public stringexpression(i?: number): StringexpressionContext | StringexpressionContext[] {
-		if (i === undefined) {
-			return this.getRuleContexts(StringexpressionContext);
-		} else {
-			return this.getRuleContext(i, StringexpressionContext);
-		}
-	}
-	public PLUS(): TerminalNode { return this.getToken(BooleanMathParser.PLUS, 0); }
-	constructor(ctx: StringexpressionContext) {
-		super(ctx.parent, ctx.invokingState);
-		this.copyFrom(ctx);
-	}
-	// @Override
-	public override  enterRule(listener: BooleanMathListener): void {
-		if (listener.enterConcatStringExpression) {
-			listener.enterConcatStringExpression(this);
-		}
-	}
-	// @Override
-	public override  exitRule(listener: BooleanMathListener): void {
-		if (listener.exitConcatStringExpression) {
-			listener.exitConcatStringExpression(this);
-		}
-	}
-	// @Override
-	public override accept<Result>(visitor: BooleanMathVisitor<Result>): Result {
-		if (visitor.visitConcatStringExpression) {
-			return visitor.visitConcatStringExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class RepeatStringExpressionContext extends StringexpressionContext {
-	public _left!: StringexpressionContext;
-	public _op!: Token;
-	public _right!: NumericexpressionContext;
-	public stringexpression(): StringexpressionContext {
-		return this.getRuleContext(0, StringexpressionContext);
-	}
-	public TIMES(): TerminalNode { return this.getToken(BooleanMathParser.TIMES, 0); }
-	public numericexpression(): NumericexpressionContext {
-		return this.getRuleContext(0, NumericexpressionContext);
-	}
-	constructor(ctx: StringexpressionContext) {
-		super(ctx.parent, ctx.invokingState);
-		this.copyFrom(ctx);
-	}
-	// @Override
-	public override  enterRule(listener: BooleanMathListener): void {
-		if (listener.enterRepeatStringExpression) {
-			listener.enterRepeatStringExpression(this);
-		}
-	}
-	// @Override
-	public override  exitRule(listener: BooleanMathListener): void {
-		if (listener.exitRepeatStringExpression) {
-			listener.exitRepeatStringExpression(this);
-		}
-	}
-	// @Override
-	public override accept<Result>(visitor: BooleanMathVisitor<Result>): Result {
-		if (visitor.visitRepeatStringExpression) {
-			return visitor.visitRepeatStringExpression(this);
 		} else {
 			return visitor.visitChildren(this);
 		}

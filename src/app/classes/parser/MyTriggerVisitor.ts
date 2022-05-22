@@ -24,7 +24,6 @@ import {
   ParenthesedStringExpressionContext,
   ParseContext,
   PlainStringExpressionContext,
-  RepeatStringExpressionContext,
   StringComparisonAssertionContext,
   StringexpressionContext,
   StringValueInListAssertionContext,
@@ -341,12 +340,6 @@ export class MyTriggerVisitor extends AbstractParseTreeVisitor<any> implements B
 
   visitParenthesedStringExpression(ctx: ParenthesedStringExpressionContext): string {
     return this.visit(ctx._val);
-  }
-
-  visitRepeatStringExpression(ctx: RepeatStringExpressionContext): string {
-    const str = this.visit(ctx._left);
-    const num = this.visit(ctx._right);
-    return str.repeat(num);
   }
 
   visitPlainStringExpression(ctx: PlainStringExpressionContext): string {

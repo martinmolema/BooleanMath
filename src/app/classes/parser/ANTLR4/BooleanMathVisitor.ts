@@ -4,8 +4,6 @@
 import { ParseTreeVisitor } from "antlr4ts/tree/ParseTreeVisitor";
 
 import { PlainStringExpressionContext } from "./BooleanMathParser";
-import { ConcatStringExpressionContext } from "./BooleanMathParser";
-import { RepeatStringExpressionContext } from "./BooleanMathParser";
 import { ParenthesedStringExpressionContext } from "./BooleanMathParser";
 import { IdentifierExpressionContext } from "./BooleanMathParser";
 import { OperatorPowerExpressionContext } from "./BooleanMathParser";
@@ -61,20 +59,6 @@ export interface BooleanMathVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitPlainStringExpression?: (ctx: PlainStringExpressionContext) => Result;
-	/**
-	 * Visit a parse tree produced by the `concatStringExpression`
-	 * labeled alternative in `BooleanMathParser.stringexpression`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitConcatStringExpression?: (ctx: ConcatStringExpressionContext) => Result;
-	/**
-	 * Visit a parse tree produced by the `repeatStringExpression`
-	 * labeled alternative in `BooleanMathParser.stringexpression`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitRepeatStringExpression?: (ctx: RepeatStringExpressionContext) => Result;
 	/**
 	 * Visit a parse tree produced by the `parenthesedStringExpression`
 	 * labeled alternative in `BooleanMathParser.stringexpression`.

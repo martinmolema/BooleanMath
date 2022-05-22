@@ -74,16 +74,24 @@ export class TriggerDataParser {
 
   }
 
+  // FIXME: setup a handler to prevent default error handling printing to console
   processExpression(expression: string | undefined): boolean {
-    if (expression === undefined) return false;
-    this.prepareForTestInput();
-    this.convertStringToCharStream(expression);
-    this.doLexing();
-    this.createParser();
-    this.createVisitor();
-    const result = this.doParse();
-    if (result) {
-      this.doPostProcessing();
+    try {
+      if (expression === undefined) return false;
+      this.prepareForTestInput();
+      this.convertStringToCharStream(expression);
+      this.doLexing();
+      this.createParser();
+      this.createVisitor();
+      const result = this.doParse();
+      if (result) {
+        this.doPostProcessing();
+      }
+
+    }
+    catch (e) {
+      const er = e as Error;
+      throw new Error(er.message);
     }
     return this.hasValidExpression;
   }// processExpression

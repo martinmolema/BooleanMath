@@ -4,8 +4,6 @@
 import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 
 import { PlainStringExpressionContext } from "./BooleanMathParser";
-import { ConcatStringExpressionContext } from "./BooleanMathParser";
-import { RepeatStringExpressionContext } from "./BooleanMathParser";
 import { ParenthesedStringExpressionContext } from "./BooleanMathParser";
 import { IdentifierExpressionContext } from "./BooleanMathParser";
 import { OperatorPowerExpressionContext } from "./BooleanMathParser";
@@ -63,30 +61,6 @@ export interface BooleanMathListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitPlainStringExpression?: (ctx: PlainStringExpressionContext) => void;
-	/**
-	 * Enter a parse tree produced by the `concatStringExpression`
-	 * labeled alternative in `BooleanMathParser.stringexpression`.
-	 * @param ctx the parse tree
-	 */
-	enterConcatStringExpression?: (ctx: ConcatStringExpressionContext) => void;
-	/**
-	 * Exit a parse tree produced by the `concatStringExpression`
-	 * labeled alternative in `BooleanMathParser.stringexpression`.
-	 * @param ctx the parse tree
-	 */
-	exitConcatStringExpression?: (ctx: ConcatStringExpressionContext) => void;
-	/**
-	 * Enter a parse tree produced by the `repeatStringExpression`
-	 * labeled alternative in `BooleanMathParser.stringexpression`.
-	 * @param ctx the parse tree
-	 */
-	enterRepeatStringExpression?: (ctx: RepeatStringExpressionContext) => void;
-	/**
-	 * Exit a parse tree produced by the `repeatStringExpression`
-	 * labeled alternative in `BooleanMathParser.stringexpression`.
-	 * @param ctx the parse tree
-	 */
-	exitRepeatStringExpression?: (ctx: RepeatStringExpressionContext) => void;
 	/**
 	 * Enter a parse tree produced by the `parenthesedStringExpression`
 	 * labeled alternative in `BooleanMathParser.stringexpression`.

@@ -15,9 +15,9 @@ import BooleanMathLex;
 parse : anexpression | EOF ;
 
 anexpression:
- str=stringexpression
-| num=numericexpression
+num=numericexpression
 | bool=booleanexpression
+| str=stringexpression
 ;
 // --------------------------------------------------------------------------------------------------------------
 //boolean expressions
@@ -46,8 +46,6 @@ astring
 
 stringexpression
   : str=astring                                            #plainStringExpression
-  | left=stringexpression op=PLUS right=stringexpression   #concatStringExpression
-  | left=stringexpression op=TIMES right=numericexpression #repeatStringExpression
   | LPAREN val=stringexpression RPAREN                     #parenthesedStringExpression
 ;
 
