@@ -162,6 +162,13 @@ AddOneTest('58', `z == 13.00000`, true);
 AddOneTest('59', `x == 10.0`, false);
 AddOneTest('60', `z == 13`, true);
 
+AddOneTest('70', `repeat("x", 3)`, 'xxx');
+AddOneTest('71', `concat("a","bc","def")`, 'abcdef');
+AddOneTest('72', `repeat("xy", 3)`, 'xyxyxy');
+AddOneTest('73', `concat()`, ``);
+AddOneTest('74', `repeat('', 0)`, '');
+AddOneTest('74', `repeat('', -1)`, 'ERROR PROCESSING: Invalid count value');
+
 /**
  * ACT
  */

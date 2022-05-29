@@ -2,7 +2,8 @@ import {
   AnexpressionContext,
   AstringContext,
   BinaryOperatorAssertionContext,
-  BooleanexpressionContext, BooleanMathParser,
+  BooleanexpressionContext,
+  BooleanMathParser,
   BooleanvalueContext,
   BooleanValueContext,
   DecimalExpressionContext,
@@ -26,10 +27,12 @@ import {
   PlainStringExpressionContext,
   StringComparisonAssertionContext,
   StringexpressionContext,
+  StringFunctionConcatContext, StringfunctionContext,
+  StringFunctionExpressionContext,
+  StringFunctionRepeatContext, StringlistContext,
   StringValueInListAssertionContext,
   UnaryoperationleftContext,
   UnaryoperationrightContext,
-  ValueContext,
   ValuelistContext,
 } from './ANTLR4/BooleanMathParser';
 import {AbstractParseTreeVisitor} from 'antlr4ts/tree';
@@ -388,18 +391,6 @@ export class MyTriggerVisitor extends AbstractParseTreeVisitor<any> implements B
     return oldValue;
   }
 
-  visitValue(ctx: ValueContext): any {
-    if (ctx.booleanexpression()) {
-      return this.visit(ctx._bool);
-    } else if (ctx.numericexpression()) {
-      return this.visit(ctx._num);
-    } else if (ctx.stringexpression()) {
-      return this.visit(ctx._str);
-    }
-    return undefined;
-  }
-
-
   visitValuelist(ctx: ValuelistContext): Array<any> {
     const items = ctx.listelements()?.listelement();
     return this.processExpressionList(items);
@@ -433,6 +424,30 @@ export class MyTriggerVisitor extends AbstractParseTreeVisitor<any> implements B
       return this.visit(ctx._str);
     }
     return undefined;
+  }
+
+  visitStringFunctionConcat(ctx: StringFunctionConcatContext): any {
+    const list = this.visit(ctx._list);
+    return list.join('');
+  }
+
+  visitStringFunctionExpression(ctx: StringFunctionExpressionContext): any {
+    return this.visit(ctx._func);
+  }
+
+  visitStringFunctionRepeat(ctx: StringFunctionRepeatContext): any {
+    const str = this.visit(ctx._str);
+    const num = this.visit(ctx._num);
+    return str.repeat(num);
+  }
+
+  visitStringlist(ctx: StringlistContext): any {
+    return this.processExpressionList(ctx.astring());
+  }
+
+  visitStringfunction(ctx: StringfunctionContext): any {
+    if (ctx.stringFunctionConcat()) { return this.visit(ctx._concat); }
+    if (ctx.stringFunctionRepeat()) { return this.visit(ctx._repeat); }
   }
 
 
