@@ -46,9 +46,19 @@ astring
 
 stringexpression
   : str=astring                                            #plainStringExpression
+  | func=stringfunction                                    #stringFunctionExpression
   | LPAREN val=stringexpression RPAREN                     #parenthesedStringExpression
 ;
 
+stringFunctionConcat: CONCAT LPAREN list=stringlist RPAREN;
+stringFunctionRepeat: REPEAT LPAREN str=stringexpression LISTSEPARATOR num=numericexpression RPAREN;
+
+
+stringlist: astring? (LISTSEPARATOR astring)*;
+stringfunction
+  :concat=stringFunctionConcat
+  |repeat=stringFunctionRepeat
+;
 // --------------------------------------------------------------------------------------------------------------
 //Expression with a lot of different values/possibilites
 // --------------------------------------------------------------------------------------------------------------
@@ -76,18 +86,12 @@ stringcomparator:     GT | GE | LT | LE | EQ | LIKE | NEQ ;
 listcomparator:       IN | NOT IN;
 binaryoperator:       AND | OR | XOR | EQ | NEQ;
 
-value
-: bool=booleanexpression
-| num=numericexpression
-| str=stringexpression
-;
-
 // --------------------------------------------------------------------------------------------------------------
 // Lists
 // --------------------------------------------------------------------------------------------------------------
 
 valuelist : BEGINLIST listelements? ENDLIST ;
-listelements : listelement ( LISTSEPERATOR listelement )* ;
+listelements : listelement ( LISTSEPARATOR listelement )* ;
 listelement: num=numericexpression | str=stringexpression ;
 
 // --------------------------------------------------------------------------------------------------------------
