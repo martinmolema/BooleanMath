@@ -4,6 +4,7 @@
 import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 
 import { PlainStringExpressionContext } from "./BooleanMathParser";
+import { StringFunctionExpressionContext } from "./BooleanMathParser";
 import { ParenthesedStringExpressionContext } from "./BooleanMathParser";
 import { IdentifierExpressionContext } from "./BooleanMathParser";
 import { OperatorPowerExpressionContext } from "./BooleanMathParser";
@@ -28,6 +29,10 @@ import { BooleanvalueContext } from "./BooleanMathParser";
 import { BooleanexpressionContext } from "./BooleanMathParser";
 import { AstringContext } from "./BooleanMathParser";
 import { StringexpressionContext } from "./BooleanMathParser";
+import { StringFunctionConcatContext } from "./BooleanMathParser";
+import { StringFunctionRepeatContext } from "./BooleanMathParser";
+import { StringlistContext } from "./BooleanMathParser";
+import { StringfunctionContext } from "./BooleanMathParser";
 import { NumericexpressionContext } from "./BooleanMathParser";
 import { FunctionwithsingleparameterContext } from "./BooleanMathParser";
 import { FunctionswitharrayContext } from "./BooleanMathParser";
@@ -35,7 +40,6 @@ import { NumericcomparatorContext } from "./BooleanMathParser";
 import { StringcomparatorContext } from "./BooleanMathParser";
 import { ListcomparatorContext } from "./BooleanMathParser";
 import { BinaryoperatorContext } from "./BooleanMathParser";
-import { ValueContext } from "./BooleanMathParser";
 import { ValuelistContext } from "./BooleanMathParser";
 import { ListelementsContext } from "./BooleanMathParser";
 import { ListelementContext } from "./BooleanMathParser";
@@ -61,6 +65,18 @@ export interface BooleanMathListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitPlainStringExpression?: (ctx: PlainStringExpressionContext) => void;
+	/**
+	 * Enter a parse tree produced by the `stringFunctionExpression`
+	 * labeled alternative in `BooleanMathParser.stringexpression`.
+	 * @param ctx the parse tree
+	 */
+	enterStringFunctionExpression?: (ctx: StringFunctionExpressionContext) => void;
+	/**
+	 * Exit a parse tree produced by the `stringFunctionExpression`
+	 * labeled alternative in `BooleanMathParser.stringexpression`.
+	 * @param ctx the parse tree
+	 */
+	exitStringFunctionExpression?: (ctx: StringFunctionExpressionContext) => void;
 	/**
 	 * Enter a parse tree produced by the `parenthesedStringExpression`
 	 * labeled alternative in `BooleanMathParser.stringexpression`.
@@ -338,6 +354,46 @@ export interface BooleanMathListener extends ParseTreeListener {
 	 */
 	exitStringexpression?: (ctx: StringexpressionContext) => void;
 	/**
+	 * Enter a parse tree produced by `BooleanMathParser.stringFunctionConcat`.
+	 * @param ctx the parse tree
+	 */
+	enterStringFunctionConcat?: (ctx: StringFunctionConcatContext) => void;
+	/**
+	 * Exit a parse tree produced by `BooleanMathParser.stringFunctionConcat`.
+	 * @param ctx the parse tree
+	 */
+	exitStringFunctionConcat?: (ctx: StringFunctionConcatContext) => void;
+	/**
+	 * Enter a parse tree produced by `BooleanMathParser.stringFunctionRepeat`.
+	 * @param ctx the parse tree
+	 */
+	enterStringFunctionRepeat?: (ctx: StringFunctionRepeatContext) => void;
+	/**
+	 * Exit a parse tree produced by `BooleanMathParser.stringFunctionRepeat`.
+	 * @param ctx the parse tree
+	 */
+	exitStringFunctionRepeat?: (ctx: StringFunctionRepeatContext) => void;
+	/**
+	 * Enter a parse tree produced by `BooleanMathParser.stringlist`.
+	 * @param ctx the parse tree
+	 */
+	enterStringlist?: (ctx: StringlistContext) => void;
+	/**
+	 * Exit a parse tree produced by `BooleanMathParser.stringlist`.
+	 * @param ctx the parse tree
+	 */
+	exitStringlist?: (ctx: StringlistContext) => void;
+	/**
+	 * Enter a parse tree produced by `BooleanMathParser.stringfunction`.
+	 * @param ctx the parse tree
+	 */
+	enterStringfunction?: (ctx: StringfunctionContext) => void;
+	/**
+	 * Exit a parse tree produced by `BooleanMathParser.stringfunction`.
+	 * @param ctx the parse tree
+	 */
+	exitStringfunction?: (ctx: StringfunctionContext) => void;
+	/**
 	 * Enter a parse tree produced by `BooleanMathParser.numericexpression`.
 	 * @param ctx the parse tree
 	 */
@@ -407,16 +463,6 @@ export interface BooleanMathListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitBinaryoperator?: (ctx: BinaryoperatorContext) => void;
-	/**
-	 * Enter a parse tree produced by `BooleanMathParser.value`.
-	 * @param ctx the parse tree
-	 */
-	enterValue?: (ctx: ValueContext) => void;
-	/**
-	 * Exit a parse tree produced by `BooleanMathParser.value`.
-	 * @param ctx the parse tree
-	 */
-	exitValue?: (ctx: ValueContext) => void;
 	/**
 	 * Enter a parse tree produced by `BooleanMathParser.valuelist`.
 	 * @param ctx the parse tree

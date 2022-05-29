@@ -4,6 +4,7 @@
 import { ParseTreeVisitor } from "antlr4ts/tree/ParseTreeVisitor";
 
 import { PlainStringExpressionContext } from "./BooleanMathParser";
+import { StringFunctionExpressionContext } from "./BooleanMathParser";
 import { ParenthesedStringExpressionContext } from "./BooleanMathParser";
 import { IdentifierExpressionContext } from "./BooleanMathParser";
 import { OperatorPowerExpressionContext } from "./BooleanMathParser";
@@ -28,6 +29,10 @@ import { BooleanvalueContext } from "./BooleanMathParser";
 import { BooleanexpressionContext } from "./BooleanMathParser";
 import { AstringContext } from "./BooleanMathParser";
 import { StringexpressionContext } from "./BooleanMathParser";
+import { StringFunctionConcatContext } from "./BooleanMathParser";
+import { StringFunctionRepeatContext } from "./BooleanMathParser";
+import { StringlistContext } from "./BooleanMathParser";
+import { StringfunctionContext } from "./BooleanMathParser";
 import { NumericexpressionContext } from "./BooleanMathParser";
 import { FunctionwithsingleparameterContext } from "./BooleanMathParser";
 import { FunctionswitharrayContext } from "./BooleanMathParser";
@@ -35,7 +40,6 @@ import { NumericcomparatorContext } from "./BooleanMathParser";
 import { StringcomparatorContext } from "./BooleanMathParser";
 import { ListcomparatorContext } from "./BooleanMathParser";
 import { BinaryoperatorContext } from "./BooleanMathParser";
-import { ValueContext } from "./BooleanMathParser";
 import { ValuelistContext } from "./BooleanMathParser";
 import { ListelementsContext } from "./BooleanMathParser";
 import { ListelementContext } from "./BooleanMathParser";
@@ -59,6 +63,13 @@ export interface BooleanMathVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitPlainStringExpression?: (ctx: PlainStringExpressionContext) => Result;
+	/**
+	 * Visit a parse tree produced by the `stringFunctionExpression`
+	 * labeled alternative in `BooleanMathParser.stringexpression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitStringFunctionExpression?: (ctx: StringFunctionExpressionContext) => Result;
 	/**
 	 * Visit a parse tree produced by the `parenthesedStringExpression`
 	 * labeled alternative in `BooleanMathParser.stringexpression`.
@@ -222,6 +233,30 @@ export interface BooleanMathVisitor<Result> extends ParseTreeVisitor<Result> {
 	 */
 	visitStringexpression?: (ctx: StringexpressionContext) => Result;
 	/**
+	 * Visit a parse tree produced by `BooleanMathParser.stringFunctionConcat`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitStringFunctionConcat?: (ctx: StringFunctionConcatContext) => Result;
+	/**
+	 * Visit a parse tree produced by `BooleanMathParser.stringFunctionRepeat`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitStringFunctionRepeat?: (ctx: StringFunctionRepeatContext) => Result;
+	/**
+	 * Visit a parse tree produced by `BooleanMathParser.stringlist`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitStringlist?: (ctx: StringlistContext) => Result;
+	/**
+	 * Visit a parse tree produced by `BooleanMathParser.stringfunction`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitStringfunction?: (ctx: StringfunctionContext) => Result;
+	/**
 	 * Visit a parse tree produced by `BooleanMathParser.numericexpression`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -263,12 +298,6 @@ export interface BooleanMathVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitBinaryoperator?: (ctx: BinaryoperatorContext) => Result;
-	/**
-	 * Visit a parse tree produced by `BooleanMathParser.value`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitValue?: (ctx: ValueContext) => Result;
 	/**
 	 * Visit a parse tree produced by `BooleanMathParser.valuelist`.
 	 * @param ctx the parse tree
